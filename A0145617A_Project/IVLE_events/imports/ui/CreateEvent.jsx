@@ -1,26 +1,24 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 
-import { Events } from '../imports/events.js';
+import { Events } from '../api/events.js';
 
 export default class CreateEvent extends Component {
 	
 	handleSubmit(event) {
-    event.preventDefault();
- 
-    // Find the text field via the React ref
-    const title = ReactDOM.findDOMNode(this.refs.titles).value.trim();
-    const org = ReactDOM.findDOMNode(this.refs.organiser).value.trim();
-    // const title = ReactDOM.findDOMNode(this.refs.committee).value.trim();
+	    event.preventDefault();
+	 
+	    // Find the text field via the React ref
+	    const title = ReactDOM.findDOMNode(this.refs.titles).value.trim();
+	    const org = ReactDOM.findDOMNode(this.refs.organiser).value.trim();
+	 
+	    Events.insert({
+	    	event_title: title,
+	      	organizer: org,
+	    });
 
- 
-    Events.insert({
-      event_title: title,
-      organizer: org,
-
-      // createdAt: new Date(), // current time
-    });
-  }
+	    window.open("/");
+  	}
 
 	render() {
 		return(
@@ -64,6 +62,40 @@ export default class CreateEvent extends Component {
 			    	</div>
 				    <div className="form-group">
 				      	<label className="control-label col-md-3" for="text">Tags</label>
+				    	<div className="col-md-9">
+				     		<input type="text" className="form-control" ref="tag" placeholder="" />
+				    	</div>
+				    </div>
+
+				    <div className="form-group">
+				      	<label className="control-label col-md-3" for="text">Dates & Time</label>
+				    	<div className="col-md-9">
+				     		<input type="text" className="form-control" ref="dateandtime" placeholder="Specify the actual event schedule here." />
+				    	</div>
+				    </div>
+
+				    <div className="form-group">
+				      	<label className="control-label col-md-3" for="text">Venue</label>
+				    	<div className="col-md-9">
+				     		<input type="text" className="form-control" ref="venue" placeholder="" />
+				    	</div>
+				    </div>
+
+				    <div className="form-group">
+				      	<label className="control-label col-md-3" for="text">Price</label>
+				    	<div className="col-md-9">
+				     		<input type="text" className="form-control" ref="price" placeholder="" />
+				    	</div>
+				    </div>
+
+				    <div className="form-group">
+				      	<label className="control-label col-md-3" for="text">Agenda</label>
+				    	<div className="col-md-9">
+				     		<input type="text" className="form-control" ref="agenda" placeholder="" />
+				    	</div>
+				    </div>
+				    <div className="form-group">
+				      	<label className="control-label col-md-3" for="text">Contact</label>
 				    	<div className="col-md-9">
 				     		<input type="text" className="form-control" ref="tag" placeholder="" />
 				    	</div>

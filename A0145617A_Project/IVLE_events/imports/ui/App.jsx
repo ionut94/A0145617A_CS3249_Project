@@ -1,22 +1,26 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
-import { Events } from '../imports/events.js';
+import { Events } from '../api/events.js';
 
 import Event from './Event.jsx';
 
 class App extends Component {
 
-	createEvent(event){
+	
+	searchInput(event) {
 		event.preventDefault();
 
+		const title = ReactDOM.findDOMNode(this.refs.search).value.trim();
 
+		events.find( {event_name: title});
 	}
+
 
 	sortTable(event) {
 		event.preventDefault();
 
-		events.findOne()
+		
 	}
 
 	renderEvents() {
@@ -41,10 +45,13 @@ class App extends Component {
 					<div className="col-md-8"> 
 						<div id="custom-search-input">
                            	<div className="input-group col-md-12">
-                	            <input type="text" className="search-query form-control" placeholder="Search" />
+                	            <input type="text" className="search-query form-control" placeholder="Search" ref="search" onSubmit={this.searchInput.bind(this)}/>
                     	        <span className="input-group-btn">
                                     <button className="btn btn-default" type="button">
                                         <span className=" glyphicon glyphicon-search"></span>
+                                    </button>
+                                    <button className="btn btn-default" type="button">
+                                        <span className="glyphicon glyphicon-repeat"></span>
                                     </button>
                                 </span>
                             </div>
@@ -62,7 +69,11 @@ class App extends Component {
 				        Event Title
 				        </a>
 				        </th>
-				        <th className="col-md-4">Event Organizer</th>
+				        <th className="col-md-4">
+				        <a onClick={this.sortTable.bind(this)}>
+				        Event Organizers
+				        </a>
+				        </th>
    				        <th className="col-md-2">Event date</th>
 				      </tr>
 				    </thead>
